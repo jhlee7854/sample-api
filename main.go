@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -17,7 +16,7 @@ func main() {
 			return
 		}
 		for _, file := range files {
-			fmt.Println(file.Name())
+			log.Default().Println(file.Name())
 			w.Write([]byte(file.Name()))
 		}
 		w.Write([]byte("===="))
