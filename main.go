@@ -18,8 +18,9 @@ func main() {
 		}
 		for _, file := range files {
 			fmt.Println(file.Name())
+			w.Write([]byte(file.Name()))
 		}
-		w.Write([]byte("hello"))
+		w.Write([]byte("===="))
 	})
 	http.ListenAndServe(":8080", nil)
 }
