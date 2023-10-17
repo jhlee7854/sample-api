@@ -1,0 +1,22 @@
+name: Actions
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: build and release to DockerHub
+        env:
+          REPO: sample-api
+        run: |
+          docker build -t $REPO .
+          docker tag $REPO:latest ${{ secrets.DOCKERHUB_USERNAME }}/$REPO:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/$REPO:latest
+
